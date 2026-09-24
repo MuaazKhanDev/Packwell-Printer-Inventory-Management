@@ -1,7 +1,6 @@
 import { InventoryClient } from "@/components/inventory-client";
-import { suggestSku } from "@/lib/inventory";
+import { suggestSku, type StockStatus } from "@/lib/inventory";
 import { readDb } from "@/lib/store";
-import type { StockStatus } from "@/lib/inventory";
 
 export const metadata = { title: "Inventory" };
 
@@ -13,7 +12,7 @@ export default async function InventoryPage({
   const params = await searchParams;
   const status: "all" | StockStatus =
     params.status === "low" || params.status === "out" || params.status === "ok" ? params.status : "all";
-  const db = readDb();
+  const db = await readDb();
   return (
     <InventoryClient
       db={db}

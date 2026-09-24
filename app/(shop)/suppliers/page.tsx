@@ -3,6 +3,6 @@ import { readDb } from "@/lib/store";
 
 export const metadata = { title: "Suppliers" };
 
-export default function SuppliersPage() {
-  return <SuppliersClient db={readDb()} />;
+export default async function SuppliersPage() {
+  return <SuppliersClient db={await readDb()} />;
 }

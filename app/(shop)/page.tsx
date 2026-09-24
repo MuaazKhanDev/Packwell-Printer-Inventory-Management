@@ -3,6 +3,6 @@ import { readDb } from "@/lib/store";
 
 export const metadata = { title: "Overview" };
 
-export default function HomePage() {
-  return <Dashboard db={readDb()} />;
+export default async function HomePage() {
+  return <Dashboard db={await readDb()} />;
 }

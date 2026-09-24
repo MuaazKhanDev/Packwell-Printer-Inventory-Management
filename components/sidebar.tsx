@@ -4,16 +4,26 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { startFresh } from "@/lib/actions";
+import { logout } from "@/lib/auth";
 import { Button, Modal, cx } from "@/components/ui";
 
 const links = [
   { href: "/", label: "Overview", icon: GridIcon },
   { href: "/inventory", label: "Inventory", icon: BoxIcon },
   { href: "/purchases", label: "Purchases", icon: ReceiptIcon },
+  { href: "/prices", label: "Prices", icon: PriceIcon },
   { href: "/suppliers", label: "Suppliers", icon: PeopleIcon },
 ];
 
-export function Sidebar({ alertCount, usingSample }: { alertCount: number; usingSample: boolean }) {
+export function Sidebar({
+  alertCount,
+  usingSample,
+  shared,
+}: {
+  alertCount: number;
+  usingSample: boolean;
+  shared: boolean;
+}) {
   const pathname = usePathname();
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -75,12 +85,15 @@ export function Sidebar({ alertCount, usingSample }: { alertCount: number; using
           })}
         </nav>
         <div className="mt-auto border-t border-white/10 px-5 py-4 text-xs text-[#a39c91]">
-          <p>Records stay on this computer.</p>
+          <p>{shared ? "Shared with every Packwell computer." : "Records stay on this computer until a database is connected."}</p>
           {usingSample ? (
             <button type="button" className="mt-2 text-left text-[#d4cec3] underline-offset-2 hover:underline" onClick={() => setConfirming(true)}>
               Clear sample data
             </button>
           ) : null}
+          <button type="button" className="mt-2 block text-left text-[#d4cec3] underline-offset-2 hover:underline" onClick={() => logout()}>
+            Sign out
+          </button>
         </div>
       </aside>
       {confirming ? (
@@ -146,6 +159,15 @@ function ReceiptIcon() {
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
       <path d="M5 2.5h8v13l-1.6-1.1L10 15.8 8.4 14.4 6.6 15.5 5 14.4V2.5Z" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" />
       <path d="M7 6h4M7 9h4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function PriceIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+      <path d="M4 13.5 7.2 9.2 9.4 11.2 14 5.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M11.2 5.5H14V8.3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
