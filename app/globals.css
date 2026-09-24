@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-newsreader), ui-serif, Georgia, serif;
+  --color-ink: #1c1915;
+  --color-paper: #f3efe6;
+  --color-card: #fffcf8;
+  --color-line: #e5ddd0;
+  --color-muted: #6e675e;
+  --color-press: #0e6b68;
+  --color-press-deep: #0a4c4a;
+  --color-danger: #9f2d2d;
+  --color-low: #8f5b00;
+  --color-ok: #1c7a49;
+  --color-sidebar: #161513;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+::selection {
+  background: #cfe7e4;
+}
+
+input,
+select,
+textarea,
+button {
+  font: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-press);
+  outline-offset: 2px;
+}
+
+.nums {
+  font-variant-numeric: tabular-nums;
+}
